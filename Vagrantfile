@@ -13,7 +13,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8084
 
-  config.vm.provider "virtualbox" do |vb|
+  # See https://github.com/mitchellh/vagrant/issues/6154 for why we do this.
+  config.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
+  config.vm.synced_folder ".", "/vagrant"
+
+  config.vm.provider "virtualbox" do |vb, override|
     vb.memory = 512
     vb.cpus   = 1
   end
@@ -30,9 +34,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "centos_7_x.sh"
 
   # Puppet Shared Folder
-  # See https://github.com/mitchellh/vagrant/issues/6154 for why we do this.
-  config.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
-  config.vm.synced_folder "puppet", "/puppet", type: "rsync"
+#  config.vm.synced_folder "puppet", "/puppet", type: "rsync"
 
   # Puppet Provisioner setup
   config.vm.provision "puppet" do |puppet|
@@ -41,6 +43,7 @@ Vagrant.configure(2) do |config|
     puppet.module_path       = "puppet/modules"
     puppet.manifest_file     = "site.pp"
     #puppet.options          = "--verbose, --debug"
+    #puppet.options           = "--graph"
   end
 
 end

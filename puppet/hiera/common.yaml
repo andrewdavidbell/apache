@@ -1,1 +1,6 @@
 ---
+ldap::ldap_url: 'ldap://ldap.forumsys.com:389/dc=example,dc=com?uid'
+ldap::ldap_bind_dn: 'cn=read-only-admin,dc=example,dc=com'
+ldap::ldap_bind_password: 'password'
+ldap::ldap_group_attribute: uniqueMember
+ldap::ldap_group: 'ou=scientists,dc=example,dc=com'

@@ -6,4 +6,4 @@
   - "common"
 
 :yaml:
-  :datadir: '/puppet/hiera'
+  :datadir: '/vagrant/puppet/hiera'
