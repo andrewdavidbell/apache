@@ -41,4 +41,9 @@ class ldap (
     content => '<?php echo \'<p>Hello World</p>\'; ?> ',
     require => File['/var/www/test'],
   }
+
+  selboolean { 'httpd_can_network_connect':
+    value => on,
+  }
+
 }
